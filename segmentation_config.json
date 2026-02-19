@@ -1,0 +1,39 @@
+{
+    "mask_colors": {
+        "void":       [0,   0,   255],
+        "functional": [255, 0, 0],
+        "inert":      [0,   255, 0],
+        "comment": "RGB values matching your hand-drawn masks"
+    },
+
+    "training": {
+        "n_samples_per_class_per_image": 30000,
+        "n_trees": 200,
+        "max_depth": 28,
+        "min_samples_leaf": 10,
+        "class_weight": "balanced",
+        "comment": "Random Forest hyperparameters. More trees = slower but more stable. Deeper trees capture finer detail but risk overfitting."
+    },
+
+    "features": {
+        "gaussian_scales": [1, 3, 5],
+        "entropy_radii": [2, 5],
+        "include_entropy": true,
+        "include_channel_ratios": true,
+        "comment": "Smaller scales (e.g. [1, 2, 4]) preserve small granule edges better. Larger scales smooth them out. entropy_radii control texture detection — smaller values detect finer texture."
+    },
+
+    "postprocessing": {
+        "smooth_radius": 2,
+        "min_object_size": 100,
+        "min_hole_size": 50,
+        "closing_radius": 1,
+        "comment": "CRITICAL for small granules: reduce these values to keep small objects. min_object_size removes objects smaller than this many pixels. Set to 0 to keep everything. smooth_radius is the mode filter radius — smaller = less smoothing = better small feature retention. closing_radius smooths boundaries — 0 disables."
+    },
+
+    "output": {
+        "save_comparison_plots": true,
+        "output_suffix": "_segmented",
+        "dpi": 200
+    }
+}
